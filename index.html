@@ -6,7 +6,12 @@
   </head>
   <body>
     <script>
+    var onUser = false;
     var showTweets = function(){
+      if (onUser){
+        $('body').find('#back').remove();
+      }
+      onUser = false;
       var $ul = $('ul');
       $ul.html('');
       var index = streams.home.length - 1;
@@ -23,13 +28,17 @@
     };
 
     var showUserTweets = function(){
+      if (!onUser){
+         $('body').prepend("<button id='back'>Back</button>")
+      }
+      onUser = true;
       var $ul = $('ul');
+      var handle = $(this).closest('li').data('user') || $('body').find('li').data('user');
       $ul.html('');
-      var handle = $(this).closest('li').data('user');
       var index = streams.users[handle].length - 1;
       while(index >= 0){
         var tweet = streams.users[handle][index];
-        var $tweet = $('<li></li>');
+        var $tweet = $('<li data-user="' + tweet.user +'"></li>');
         $tweet.css('list-style-type', 'none');
         var $user = $('<a href="#">' + '@' + tweet.user + '</a>');
         $tweet.text(': ' + tweet.message + ', ' + tweet.created_at);
@@ -45,8 +54,16 @@
         $('body').append("<button id='update'>Update</button>");
         $('body').append('<span><ul></ul></span>');
         showTweets();
-        $('button').on('click', showTweets);
-        $('.user').on('click', showUserTweets);
+        $('body').on('click','.user', showUserTweets);
+        $('#update').on('click', function(){
+          if (onUser){
+            showUserTweets();
+          }
+          else {
+            showTweets();
+          }
+        })
+        $('body').on('click','#back', showTweets);
       });
 
     </script>
