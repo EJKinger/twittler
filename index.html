@@ -12,7 +12,7 @@
       var index = streams.home.length - 1;
       while(index >= 0){
         var tweet = streams.home[index];
-        var $tweet = $('<li></li>');
+        var $tweet = $('<li data-user="' + tweet.user +'"></li>');
         $tweet.css('list-style-type', 'none');
         var $user = $('<a class="user" href="#">' + '@' + tweet.user + '</a>');
         $tweet.text(': ' + tweet.message + ', ' + tweet.created_at);
@@ -22,11 +22,13 @@
         }
     };
 
-    var showUserTweets = function(user){
+    var showUserTweets = function(){
+      var $ul = $('ul');
       $ul.html('');
-      var index = streams.home.length - 1;
+      var handle = $(this).closest('li').data('user');
+      var index = streams.users[handle].length - 1;
       while(index >= 0){
-        var tweet = streams.home[index];
+        var tweet = streams.users[handle][index];
         var $tweet = $('<li></li>');
         $tweet.css('list-style-type', 'none');
         var $user = $('<a href="#">' + '@' + tweet.user + '</a>');
