@@ -6,20 +6,45 @@
   </head>
   <body>
     <script>
+    var showTweets = function(){
+      var $ul = $('ul');
+      $ul.html('');
+      var index = streams.home.length - 1;
+      while(index >= 0){
+        var tweet = streams.home[index];
+        var $tweet = $('<li></li>');
+        $tweet.css('list-style-type', 'none');
+        var $user = $('<a class="user" href="#">' + '@' + tweet.user + '</a>');
+        $tweet.text(': ' + tweet.message + ', ' + tweet.created_at);
+        $tweet.prepend($user);
+        $tweet.appendTo($ul);
+        index -= 1;
+        }
+    };
+
+    var showUserTweets = function(user){
+      $ul.html('');
+      var index = streams.home.length - 1;
+      while(index >= 0){
+        var tweet = streams.home[index];
+        var $tweet = $('<li></li>');
+        $tweet.css('list-style-type', 'none');
+        var $user = $('<a href="#">' + '@' + tweet.user + '</a>');
+        $tweet.text(': ' + tweet.message + ', ' + tweet.created_at);
+        $tweet.prepend($user);
+        $tweet.appendTo($ul);
+        index -= 1;
+      }
+    };
 
       $(document).ready(function(){
         var $body = $('body');
         $body.html('');
-
-        var index = streams.home.length - 1;
-        while(index >= 0){
-          var tweet = streams.home[index];
-          var $tweet = $('<div></div>');
-          $tweet.text('@' + tweet.user + ': ' + tweet.message);
-          $tweet.appendTo($body);
-          index -= 1;
-        }
-
+        $('body').append("<button id='update'>Update</button>");
+        $('body').append('<span><ul></ul></span>');
+        showTweets();
+        $('button').on('click', showTweets);
+        $('.user').on('click', showUserTweets);
       });
 
     </script>
