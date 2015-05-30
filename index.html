@@ -3,6 +3,8 @@
   <head>
     <script src="jquery.js"></script>
     <script src="data_generator.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href='http://fonts.googleapis.com/css?family=Fredericka+the+Great' rel='stylesheet' type='text/css'>
   </head>
   <body>
     <script>
@@ -17,19 +19,21 @@
       var index = streams.home.length - 1;
       while(index >= 0){
         var tweet = streams.home[index];
-        var $tweet = $('<li data-user="' + tweet.user +'"></li>');
-        $tweet.css('list-style-type', 'none');
+        var $tweet = $('<li class="tweet" data-user="' + tweet.user +'"></li>');
+        var $tweetWrap = $('<div class="tweetWrap"></div>')
         var $user = $('<a class="user" href="#">' + '@' + tweet.user + '</a>');
-        $tweet.text(': ' + tweet.message + ', ' + tweet.created_at);
-        $tweet.prepend($user);
-        $tweet.appendTo($ul);
+        $tweetWrap.text(': ' + tweet.message + ', ' + tweet.created_at);
+        $tweetWrap.prepend($user);
+        $tweetWrap.appendTo($tweet);
+        $tweet.appendTo('ul');
         index -= 1;
         }
     };
 
     var showUserTweets = function(){
       if (!onUser){
-         $('body').prepend("<button id='back'>Back</button>")
+         //$('body').prepend("<button id='back'>Back</button>")
+         $("<button id='back'>Back</button>").insertBefore('#update');
       }
       onUser = true;
       var $ul = $('ul');
@@ -38,12 +42,13 @@
       var index = streams.users[handle].length - 1;
       while(index >= 0){
         var tweet = streams.users[handle][index];
-        var $tweet = $('<li data-user="' + tweet.user +'"></li>');
-        $tweet.css('list-style-type', 'none');
-        var $user = $('<a href="#">' + '@' + tweet.user + '</a>');
-        $tweet.text(': ' + tweet.message + ', ' + tweet.created_at);
-        $tweet.prepend($user);
-        $tweet.appendTo($ul);
+        var $tweet = $('<li class="tweet" data-user="' + tweet.user +'"></li>');
+        var $tweetWrap = $('<div class="tweetWrap"></div>')
+        var $user = $('<a class="user" href="#">' + '@' + tweet.user + '</a>');
+        $tweetWrap.text(': ' + tweet.message + ', ' + tweet.created_at);
+        $tweetWrap.prepend($user);
+        $tweetWrap.appendTo($tweet);
+        $tweet.appendTo('ul');
         index -= 1;
       }
     };
@@ -51,7 +56,9 @@
       $(document).ready(function(){
         var $body = $('body');
         $body.html('');
-        $('body').append("<button id='update'>Update</button>");
+        $('body').append("<h1>twittler!</h1>");
+        $('body').append("<div id='nav'><div>")
+        $('#nav').append("<button id='update'>Update</button>");
         $('body').append('<span><ul></ul></span>');
         showTweets();
         $('body').on('click','.user', showUserTweets);
