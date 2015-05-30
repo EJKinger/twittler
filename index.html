@@ -20,10 +20,11 @@
       while(index >= 0){
         var tweet = streams.home[index];
         var $tweet = $('<li class="tweet" data-user="' + tweet.user +'"></li>');
-        var $tweetWrap = $('<div class="tweetWrap"></div>')
+        var $tweetWrap = $('<div class="tweetWrap"></div>');
         var $user = $('<a class="user" href="#">' + '@' + tweet.user + '</a>');
-        $tweetWrap.text(': ' + tweet.message + ', ' + tweet.created_at);
+        $tweetWrap.text(': ' + tweet.message);
         $tweetWrap.prepend($user);
+        $tweetWrap.append('<br><span class="timestamp">' + tweet.created_at + '</span>');
         $tweetWrap.appendTo($tweet);
         $tweet.appendTo('ul');
         index -= 1;
@@ -32,7 +33,6 @@
 
     var showUserTweets = function(){
       if (!onUser){
-         //$('body').prepend("<button id='back'>Back</button>")
          $("<button id='back'>Back</button>").insertBefore('#update');
       }
       onUser = true;
@@ -45,8 +45,9 @@
         var $tweet = $('<li class="tweet" data-user="' + tweet.user +'"></li>');
         var $tweetWrap = $('<div class="tweetWrap"></div>')
         var $user = $('<a class="user" href="#">' + '@' + tweet.user + '</a>');
-        $tweetWrap.text(': ' + tweet.message + ', ' + tweet.created_at);
+        $tweetWrap.text(': ' + tweet.message);
         $tweetWrap.prepend($user);
+        $tweetWrap.append('<br><span class="timestamp">' + tweet.created_at + '</span>');
         $tweetWrap.appendTo($tweet);
         $tweet.appendTo('ul');
         index -= 1;
@@ -56,7 +57,7 @@
       $(document).ready(function(){
         var $body = $('body');
         $body.html('');
-        $('body').append("<h1>twittler!</h1>");
+        $('body').append("<h1><a class='mainLogo' href='#'>twittler!</a></h1>");
         $('body').append("<div id='nav'><div>")
         $('#nav').append("<button id='update'>Update</button>");
         $('body').append('<span><ul></ul></span>');
@@ -71,7 +72,8 @@
           }
         })
         $('body').on('click','#back', showTweets);
-        $('body').append('<h2 id="logo">twittler!</h2>');
+        $('body').append('<h2 id="logo"><a class="mainLogo" href="#">twittler!</a></h2>');
+        $('body').on('click', '.mainLogo', showTweets);
       });
 
     </script>

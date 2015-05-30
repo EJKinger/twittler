@@ -53,7 +53,6 @@ h1 {
 	width: 270px;
 	border-radius: 5px;
 	background-color: #6B008F;
-	color: #F7F2FC;
 	display: block;
 	padding: 4px 6px 4px 6px;
 	margin: 35px 0 5px -30px;
@@ -66,11 +65,15 @@ h1 {
 button {
 	float: right;
 }
+.mainLogo{
+	color: #F7F2FC;
+	text-decoration: none;
+}
 .tweetWrap {
 	background-color: rgba(255, 255, 255, .85);
 	border: 1px solid black;
 	border-radius: 5px;
-	padding: 5px;
+	padding: 10px;
 	margin: 6px;
 }
 #nav {
@@ -85,9 +88,18 @@ li {
 	margin: 0 auto;
 	width: 685px;
 	font-size: 22px;
+	line-height: 110%;
 }
 div .tweetWrap {
 	margin: 0 auto;
+}
+.timestamp{
+	display: inline-block;
+    width: 98%;
+  	text-align: right;
+  	margin-right: 25px;
+  	font-size: 10px;
+  	color: #999999;
 }
 #logo {
 	width: 180px;
@@ -102,6 +114,13 @@ div .tweetWrap {
 	font-family: 'Fredericka the Great', cursive;
 	font-size: 50px;
 	text-align: left;
+}
+.user {
+	color: #6B008F;
+	text-decoration: none;
+}
+.user:hover{
+	text-decoration: underline;
 }
 @media (max-width: 800px){
 	body {
